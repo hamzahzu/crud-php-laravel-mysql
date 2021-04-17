@@ -1,0 +1,109 @@
+/*
+SQLyog Ultimate v12.09 (64 bit)
+MySQL - 5.7.24 : Database - opsigo
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`opsigo` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `opsigo`;
+
+/*Table structure for table `migrations` */
+
+DROP TABLE IF EXISTS `migrations`;
+
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `migrations` */
+
+insert  into `migrations`(`id`,`migration`,`batch`) values (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2021_04_17_024510_create_table_pegawai',1),(4,'2021_04_17_031214_create_table_struktur_pegawai',2),(5,'2021_04_17_050510_add_field_running_number_pegawai',3),(6,'2021_04_17_053011_add_field_spv_pegawai',4);
+
+/*Table structure for table `password_resets` */
+
+DROP TABLE IF EXISTS `password_resets`;
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`),
+  KEY `password_resets_token_index` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `password_resets` */
+
+/*Table structure for table `pegawai` */
+
+DROP TABLE IF EXISTS `pegawai`;
+
+CREATE TABLE `pegawai` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `nip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `running_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `tempat` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dob` date NOT NULL,
+  `join_date` date NOT NULL,
+  `status` enum('Tetap','Kontrak','Keluar') COLLATE utf8_unicode_ci NOT NULL,
+  `spv` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `pegawai` */
+
+insert  into `pegawai`(`id`,`nama`,`nip`,`running_number`,`tempat`,`dob`,`join_date`,`status`,`spv`,`created_at`,`updated_at`) values (1,'Dr Andre Syaefudin','RJP880001','0001','Jakarta','2021-04-14','1980-02-15','Tetap','','2021-04-17 12:02:52','2021-04-17 12:02:54'),(8,'Asep','RJP880002','0002','Bogor','1990-04-12','2015-12-02','Tetap','Dr Andre Syaefudin','2021-04-17 06:41:41','2021-04-17 06:41:41'),(9,'Wawan','RJP880003','0003','Subang','1992-05-08','2020-11-05','Tetap','Asep','2021-04-17 06:42:33','2021-04-17 06:42:33'),(10,'Udin','RJP880004','0004','Jepara','1992-07-17','2017-10-24','Tetap','Asep','2021-04-17 06:44:26','2021-04-17 14:19:01'),(11,'Usro','RJP880005','0005','Semarang','1997-02-26','2018-02-20','Kontrak','Udin','2021-04-17 06:46:26','2021-04-17 14:19:01'),(12,'Untung','RJP880006','0006','Jombang','2000-10-10','2021-04-12','Kontrak','Udin','2021-04-17 13:22:23','2021-04-17 14:20:36');
+
+/*Table structure for table `struktur_pegawai` */
+
+DROP TABLE IF EXISTS `struktur_pegawai`;
+
+CREATE TABLE `struktur_pegawai` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_pegawai` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id_spv` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `struktur_pegawai` */
+
+insert  into `struktur_pegawai`(`id`,`id_pegawai`,`id_spv`,`created_at`,`updated_at`) values (1,'8','1','2021-04-17 06:41:41','2021-04-17 06:41:41'),(2,'9','8','2021-04-17 06:42:33','2021-04-17 06:42:33'),(3,'10','8','2021-04-17 06:44:26','2021-04-17 06:44:26'),(4,'11','10','2021-04-17 06:46:26','2021-04-17 14:19:01'),(5,'12','10','2021-04-17 13:22:23','2021-04-17 14:19:01');
+
+/*Table structure for table `users` */
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `users` */
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
